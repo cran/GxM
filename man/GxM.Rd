@@ -4,6 +4,7 @@
 Maximum Likelihood Estimation of Gene-by-Measured Environment Interaction Models
 }
 \description{
+This function is used to produce maximum likelihood estimation for model fittings. 
 With identification of the model fitted to the given data set with certain constrains of parameters, 
 both numerical method and closed form based method are available to 
 obtain the maximum likelihood estimate of parameters. Hessian matrix of log-likelihood at the estimate
@@ -16,9 +17,11 @@ GxM(dataset, rGvalue=0.995, modelname,
 }
 \arguments{
 \item{dataset}{
-a data frame of input. This data frame should contain 6 columns, including the id of twins, the rG value for the individual twin, as well as M1, M2, P1 and P2 values.
+a data frame of input. This data frame should contain 6 columns, including the id of twin/sibling pairs, the rG value for the pairs, as well as the observed M1, M2, P1 and P2 values. 
+The M1, M2, P1, P2 data would NOT be automatically standardized. 
 }
-\item{rGvalue}{a correlation value of genetic influences to a pair of twins.}
+\item{rGvalue}{a correlation value of genetic influences to a pair of twins/siblings. A value close to one is used to replace exact one to avoid calculations with singular matrices.
+This value cannot be the same for all pairs for the same reason.}
 \item{modelname}{
 a character string input specifying which model should be fitted. Possible choices include \code{Chol,CholGxM,CholNonLin,NLMainGxM,CorrGxM} and \code{CorrNonLin}. \cr
 \describe{
@@ -28,12 +31,12 @@ a character string input specifying which model should be fitted. Possible choic
 \item{\code{NLMainGxM}}{\eqn{P = \mu_P + \beta_1*M + \beta_2*M^2 + (a_U+\alpha_U*M)*A_U + (c_U+\kappa_U*M)*C_U + (e_U+\epsilon_U*M)*E_U.}}
 \item{\code{CorrGxM}}{\eqn{P = \mu_P + (a_P+\alpha_P*M)*A_P + (c_P+\kappa_P*M)*C_P + (e_P+\epsilon_P*M)*E_P.}}
 \item{              }{\eqn{ r_A = corr(A_P,A_M);  r_C = corr(C_P,C_M);  r_E = corr(E_P,E_M)}}
-\item{\code{CorrNonLin}}{\eqn{P = \mu_P + (a_P+\alpha_P*M)*A_P + (c_P+\kappa_P*M)*C_P + (e_P+\epsilon_P*M)*E_P + \lambda_1*A_M*A_P + \lambda_2*C_M*C_P + \lambda_3*E_M*E_P.}}
+\item{\code{CorrNonLin}}{\eqn{P = \mu_P + a_P*A_P + c_P*C_P + e_P*E_P + \lambda_1*A_M*A_P + \lambda_2*C_M*C_P + \lambda_3*E_M*E_P.}}
 \item{                 }{\eqn{ r_A = corr(A_P,A_M);  r_C = corr(C_P,C_M);  r_E = corr(E_P,E_M)}}
 }
 }
 \item{zeroset}{
-a set of parameters that would be set 0 in the estimation. Character string for parameter names would be used for identification.
+a set of parameters that would be set zeros in the estimation. Character string for parameter names would be used for identification.
 }
 \item{closedform}{
 logical type indicating whether closed form method or numerical method should be applied to likelihood calculation.

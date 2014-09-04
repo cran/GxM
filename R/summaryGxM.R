@@ -1,4 +1,5 @@
-summaryGxM = function(GxMmle, inverseHessian="block", eps=1e-10, r=0.999) {
+summaryGxM <-
+function(GxMmle, inverseHessian="overall", eps=1e-10, r=0.999) {
 
   par = slot(GxMmle,"par");
 

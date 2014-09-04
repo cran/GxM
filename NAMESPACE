@@ -1,1 +1,6 @@
+import(methods)
+import(Rcpp)
+import(minqa)
+import(nlme)
+import(parallel)
 export("checkGxM", "GxM", "summaryGxM")

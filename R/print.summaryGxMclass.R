@@ -1,4 +1,5 @@
-print.summaryGxMclass = function(x, ..., eps=1e-10) {
+print.summaryGxMclass <-
+function(x, ..., eps=1e-10) {
 
     sumGxMmle = x;
     cat("Coefficients:\n")

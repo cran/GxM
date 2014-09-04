@@ -1,6 +1,4 @@
-print.GxMclass = function(x, ...) {
-
-    GxMmle = x;
+print.GxMclass = function(GxMmle) {
     cat("Log-likelihood:\t", round(slot(GxMmle,"loglikelihood"),digits=2));
     cat("\n\n");
 

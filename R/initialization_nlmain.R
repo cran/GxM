@@ -42,8 +42,8 @@ function(dataset, rGvalue, fullparam, zeroset, manualinitial) {
     } else { beta2 = coeff[3]; paramnames = c(paramnames,'beta2'); paramvalues = c(paramvalues, beta2); }
   }  
   names(paramvalues) = paramnames;
-  lower = paramvalues - 5;
-  upper = paramvalues + 5;
+  lower = paramvalues - 10;
+  upper = paramvalues + 10;
 
   dataset$P1 = Lmfit$resid[1:(length(P)/2)];
   dataset$P2 = Lmfit$resid[-c(1:(length(P)/2))];

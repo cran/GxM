@@ -17,6 +17,27 @@ function(dataset, rGvalue, fullparam, zeroset, manualinitial) {
   muPDZ = mean(P);
   Sy = cov(cbind(M,P));
 
+  if (nrow(DataMZ) == 0 || nrow(DataDZ) == 0) {
+    n = nrow(dataset);
+    Dataset = dataset[order(dataset$rG,decreasing=TRUE),];
+
+    DataMZ = Dataset[1:round(n/2),];
+    M = cbind(DataMZ$M1, DataMZ$M2); 
+    nMZ = nrow(M); 
+    muMMZ = mean(M);
+    P = cbind(DataMZ$P1, DataMZ$P2);
+    muPMZ = mean(P);
+    Sx = cov(cbind(M,P));
+
+    DataDZ = Dataset[(round(n/2)+1):n,]
+    M = cbind(DataDZ$M1, DataDZ$M2); 
+    nDZ = nrow(M);
+    muMDZ = mean(M);
+    P = cbind(DataDZ$P1, DataDZ$P2);
+    muPDZ = mean(P);
+    Sy = cov(cbind(M,P));
+  }
+
   muM = (muMMZ*nMZ+muMDZ*nDZ)/(nMZ+nDZ);
   muP = (muPMZ*nMZ+muPDZ*nDZ)/(nMZ+nDZ);
 
@@ -53,14 +74,14 @@ function(dataset, rGvalue, fullparam, zeroset, manualinitial) {
       ind = which(usedset1[i] == names(initialvalues));
       param1[1,i] = initialvalues[[ind]];
     }
-    param1[2,] = param1[1,] - 5;
-    param1[3,] = param1[1,] + 5;
+    param1[2,] = param1[1,] - 10;
+    param1[3,] = param1[1,] + 10;
     colnames(param1) = usedset1;
   }
 
   usedset2 = setdiff(usedparam, usedset1);
   d2 = length(usedset2);
-  param2 = matrix(rep(c(0, -5, 5), d2), 3, d2);
+  param2 = matrix(rep(c(0, -10, 10), d2), 3, d2);
   colnames(param2) = usedset2;
   param = cbind(param1, param2);
 
@@ -74,8 +95,8 @@ function(dataset, rGvalue, fullparam, zeroset, manualinitial) {
         cat(paste(manualnames[i],'can not be manually initialized.\n'));
       } else {
         initial[localind] = manualinitial[[i]];
-        param[2,localind] = initial[localind] - 5;
-        param[3,localind] = initial[localind] + 5;
+        param[2,localind] = initial[localind] - 10;
+        param[3,localind] = initial[localind] + 10;
       }
     }
   }
